@@ -30,14 +30,18 @@ app.get("/listings", async (req, res)=> {
     const allListings = await Listing.find({});
     res.render("listings/index.ejs",{allListings});
 });
+
+//new Route
+app.get("/listings/new",(req,res)=> {
+    res.render("listings/new.ejs");
+}); 
+
 // Show Routes 
 app.get("/listings/:id",async (req,res) => {
     let {id} = req.params;
     const listing = await Listing.findById(id);
     res.render("listings/show.ejs", {listing});
-})
-
-
+});
 
 
 //Test 
