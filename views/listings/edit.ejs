@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GlobalLodge</title>
+    <title>GlobbalLodge</title>
 </head>
 <body>
     <h3>Create a New Listing</h3>
-    <form method="post" action="/listings">
-        <input name="listing[title]" placeholder="enter title" type="text">
+    <form>
+        <input name="listing[title]" value="<%= listing.title %>" type="text">
         <br><br>
-        <textarea name="listing[description]" placeholder="enter description" type="text"></textarea>
+        <textarea name="listing[description]" value="<%= listing.description %>" type="text"></textarea>
         <br><br>
         <input name="listing[image]" placeholder="enter image URL/Link">
         <br><br>
