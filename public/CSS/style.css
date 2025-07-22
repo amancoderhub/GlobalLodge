@@ -1,22 +1,22 @@
 body {
     font-family: "Plus Jakarta Sans", sans-serif !important;
-    display:flex;
-    flex-direction:column;
-    min-height: 100vh
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
-.container{
-    flex:1;
+.container {
+    flex: 1;
 }
 
 /* Navbar */
 .navbar {
     height: 5rem;
-    background-color:rgb(255, 254, 254);
+    background-color: rgb(255, 254, 254);
 }
 
 .fa-compass {
     color: #fe424d;
-    font-size:2rem;
+    font-size: 2rem;
 }
 
 .nav-link {
@@ -25,8 +25,8 @@ body {
 
 /* Footer */
 .f-info-links a {
-   text-decoration: none;
-   color: #222222;
+    text-decoration: none;
+    color: #222222;
 }
 
 .f-info-links a:hover {
@@ -34,15 +34,15 @@ body {
 }
 .f-info-links,
 .f-info-socials,
-.f-info-brand{
+.f-info-brand {
     width: 100%;
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .f-info-socials i {
-    font-size : 1.2rem;
+    font-size: 1.2rem;
     margin-right: 0.7rem;
 }
 
@@ -50,66 +50,66 @@ body {
     text-align: center;
     height: 8rem;
     background-color: #ebebeb;
-    display : flex;
+    display: flex;
     flex-wrap: wrap;
-    align-items: space-evenly;
+    -items: space-evenly;
 }
 
 /* card */
 
-.card{
+.listing-card {
     border: none !important;
     margin-bottom: 2rem;
 }
 
 .card-img-top {
-    border-radius : 1rem !important;
-    width:100% !important;
+    border-radius: 1rem !important;
+    width: 100% !important;
     object-fit: cover !important;
 }
 
-.card-body{
+.card-body {
     padding: 0 !important;
 }
 
 .card-text p {
-    font-weight : 400 !important;
+    font-weight: 400 !important;
 }
 
-.listing-link{
-    text-decoration:none;
+.listing-link {
+    text-decoration: none;
 }
 
-.card-img-overlay{
-    opacity:0;
+.card-img-overlay {
+    opacity: 0;
 }
 .card-img-overlay:hover {
-   opacity:0.2;
-   background-color:rgb(255, 250, 250);
+    opacity: 0.2;
+    background-color: rgb(255, 250, 250);
 }
 
 /* Add Page */
-.add-btn{
+.add-btn {
     background-color: #fe424d !important;
-    border:none;
+    border: none;
 }
 
 /* Edit Page */
-.edit-btn{
+.edit-btn {
     background-color: #fe424d !important;
-    border:none;
+    border: none;
 }
 
 /* Show Page */
-.Show-img{
-    height:30vh;
+.Show-img {
+    height: 30vh;
 }
 
-.btns{
-    display:flex;
+.btns {
+    display: flex;
 }
 
-.show-card{
-    padding-left:0;
-    padding-right:0;
+.show-card {
+    padding-left: 0;
+    padding-right: 0;
 }
