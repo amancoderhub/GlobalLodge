@@ -6,9 +6,12 @@
             <h3>Create a New Listing</h3>
             <form method="post" action="/listings" novalidate class="needs-validation">
                 <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
+                    <label for="title"
+                    type="text"
+                    class="form-label">Title</label>
                     <input name="listing[title]" placeholder="Add a catchy title" type="text" class="form-control"
                         required />
+                        <div class="valid-feedback">Title looks good!</div>
                 </div>
 
                 <div class="mb-3">
