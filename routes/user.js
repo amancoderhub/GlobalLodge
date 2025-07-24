@@ -4,6 +4,7 @@ const User = require("../models/user.js");
 const wrapAsyc = require("../utils/wrapAsyc.js");
 const passport = require("passport");
 const flash = require("connect-flash");
+const {saveRedirectUrl} = require("../middleware.js");
 router.get("/signup", (req, res) => {
     res.render("users/signup.ejs");
 });
@@ -14,7 +15,7 @@ router.post("/signup", wrapAsyc(async (req, res) => {
         const newUser = new User({ email, username });
         const registeredUser = await User.register(newUser, password);
         console.log(registeredUser);
-        req.logn(registeredUser, (err) => {
+        req.login(registeredUser, (err) => {
             if (err) {
                 return next(err);
             }
@@ -33,13 +34,15 @@ router.get("/login", (req, res) => {
 })
 
 router.post("/login",
+    saveRedirectUrl,
     passport.authenticate("local", {
         failureRedirect: "/login",
         failureFlash: true,
     }),
     async (req, res) => {
         req.flash("success", "Welcom to GlobalLodge!")
-        res.redirect("/listings");
+        let redirectUrl = res.locals.redirectUrl || "/listings"
+        res.redirect(redirectUrl);
     });
 
 router.get("/logout", (req, res, next) => {
