@@ -1,0 +1,191 @@
+    html, body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    } 
+body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.container {
+    flex: 1;
+}
+
+/* Navbar */
+.navbar {
+    height: 5rem;
+    background-color: rgba(248, 243, 243, 1);
+}
+
+.fa-compass {
+    color: #fe424d;
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #222222 !important;
+}
+
+/* Footer */
+/* Footer Base */
+.footer {
+    background-color: #dad3d3ff;
+    padding: 2rem 1.5rem;
+    margin-top: 3rem;
+}
+
+.f-container {
+    max-width: 1200px;
+    height: 200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Logo */
+.f-logo img {
+    height: 60px;
+    object-fit: column;
+}
+
+/* Social Icons */
+.f-info-socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    gap: 1rem;
+}
+
+.f-info-socials i {
+    font-size: 1.5rem;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.f-info-socials i:hover {
+    color: #0077b5; /* LinkedIn blue */
+}
+
+/* Links and Brand */
+.f-info-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.f-info-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.f-info-links a {
+    text-decoration: none;
+    color: #222;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+    color: #555;
+}
+
+.f-info-brand {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* card */
+
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+}
+
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.card-body {
+    padding: 0 !important;
+}
+
+.card-text p {
+    font-weight: 400 !important;
+}
+
+.listing-link {
+    text-decoration: none;
+}
+
+.card-img-overlay {
+    opacity: 0;
+}
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: rgb(255, 250, 250);
+}
+
+/* Add Page */
+.add-btn {
+    background-color: #fe424d !important;
+    border: none;
+}
+
+/* Edit Page */
+.edit-btn {
+    background-color: #fe424d !important;
+    border: none;
+}
+
+/* Show Page */
+.Show-img {
+    height: 40vh;
+}
+
+.btns {
+    display: flex;
+}
+
+.show-card {
+    padding-left: 0;
+    padding-right: 0;
+}
+.footer-divider {
+    border: none;
+    height: 1px;
+    background-color: #444;
+    margin: 2rem 0 1rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 0.9rem;
+}
+.footer-logo {
+    height: 60px;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.footer-logo:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* MAP */
+#map{
+    width: 100%;
+    max-width: 100%; 
+    height: 300px;
+    border-radius: 8px;
+}
+

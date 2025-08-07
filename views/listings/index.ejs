@@ -1,0 +1,225 @@
+<% layout("/layouts/boilerplate") %>
+<style>
+#filters-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 2rem 0;
+  gap: 0.5rem;
+}
+
+#filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  flex-grow: 1;
+  scroll-behavior: smooth;
+}
+
+#filters::-webkit-scrollbar {
+  display: none;
+}
+
+.filter {
+  text-align: center;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  flex: 0 0 auto;
+  min-width: 70px;
+}
+
+.filter:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.filter div {
+  font-size: 1.5rem;
+}
+
+.filter p {
+  font-size: 0.85rem;
+  margin: 0.3rem 0 0;
+}
+
+.tax-toggle {
+  border: 1px solid black;
+  border-radius: 1rem;
+  height: 3.25rem;
+  padding: 1rem;
+  margin-left: 4rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Arrow buttons */
+.scroll-btn {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.scroll-btn:hover {
+  background: #f0f0f0;
+}
+.oval-box {
+  background-color: #f7f3f3; /* or any light color */
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  flex-grow: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  #filters-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .oval-box {
+    overflow-x: auto;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0.5rem;
+  }
+
+  #filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .scroll-btn {
+    display: none;
+  }
+
+  .tax-toggle {
+      font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+      margin-left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center; 
+      gap: 0.5rem;
+      width: 100%; 
+    }
+
+  .filter {
+    min-width: 60px;
+  }
+
+  .filter div {
+    font-size: 1.2rem;
+  }
+
+  .filter p {
+    font-size: 0.75rem;
+  }
+}
+
+</style>
+
+
+<body>
+  <!-- <h3>All Listings</h3> -->
+  <div id="filters-wrapper">
+  <!-- <button id="scroll-left" class="scroll-btn">&#8249;</button>
+
+  <div class="oval-box">
+    <div id="filters">
+      <div class="filter"><div><i class="fa-solid fa-fire"></i></div><p>Trending</p></div>
+      <div class="filter"><div><i class="fa-solid fa-bed"></i></div><p>Rooms</p></div>
+      <div class="filter"><div><i class="fa-solid fa-mountain-city"></i></div><p>Iconic city</p></div>
+      <div class="filter"><div><i class="fa-solid fa-mountain"></i></div><p>Mountains</p></div>
+      <div class="filter"><div><i class="fa-brands fa-fort-awesome"></i></div><p>Castle</p></div>
+      <div class="filter"><div><i class="fa-solid fa-person-swimming"></i></div><p>Amazing pool</p></div>
+      <div class="filter"><div><i class="fa-solid fa-campground"></i></div><p>Camping</p></div>
+      <div class="filter"><div><i class="fa-solid fa-cow"></i></div><p>Farms</p></div>
+      <div class="filter"><div><i class="fa-regular fa-snowflake"></i></div><p>Arctic</p></div>
+      <div class="filter"><div><i class="fa-solid fa-mountain-sun"></i></div><p>Island</p></div>
+      <div class="filter"><div><i class="fa-solid fa-house-chimney"></i></div><p>HillStation</p></div>
+    </div>
+  </div> -->
+
+  <!-- <button id="scroll-right" class="scroll-btn">&#8250;</button> -->
+
+  <div class="tax-toggle">
+    <div class="form-check-reverse form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+      <label class="form-check-label" for="switchCheckDefault">Display Total After taxes</label>
+    </div>
+  </div>
+</div>
+
+  
+
+  
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+    <% for (let listing of allListings) { %>
+      <a href="/listings/<%= listing._id %>" class="listing-link">
+        <div class="card col listing-card">
+          
+          <% 
+            let imageUrl;
+            if (listing.image && listing.image.url) {
+              imageUrl = listing.image.url.startsWith("http")
+                ? listing.image.url
+                : `https://res.cloudinary.com/devf9qie2/image/upload/${listing.image.url}`;
+            } else {
+              imageUrl = "/images/default.jpg"; // Fallback if no image
+            }
+          %>
+
+          <img src="<%= imageUrl %>" class="card-img-top" alt="listing_image" style="height: 20rem">
+          <div class="card-img-overlay"></div>
+
+          <div class="card-body">
+            <p class="card-text">
+              <b><%= listing.title %></b> <br>
+              ₹<%= listing.price.toLocaleString("en-IN") %> / night
+              <i class="tax-info"> &nbsp; &nbsp; +18% GST</i>
+            </p>
+          </div>
+        </div>
+      </a>
+    <% } %>
+  </div>
+</body>
+<script>
+  // // Scroll buttons logic
+  // const filters = document.getElementById("filters");
+  // const scrollLeftBtn = document.getElementById("scroll-left");
+  // const scrollRightBtn = document.getElementById("scroll-right");
+
+  // scrollLeftBtn.addEventListener("click", () => {
+  //   filters.scrollBy({ left: -200, behavior: "smooth" });
+  // });
+
+  // scrollRightBtn.addEventListener("click", () => {
+  //   filters.scrollBy({ left: 200, behavior: "smooth" });
+  // });
+
+  // Tax toggle
+  const taxSwitch = document.getElementById("switchCheckDefault");
+  taxSwitch.addEventListener("click", () => {
+    const taxInfo = document.getElementsByClassName("tax-info");
+    for (const info of taxInfo) {
+      info.style.display = (info.style.display !== "inline") ? "inline" : "none";
+    }
+  });
+</script>
