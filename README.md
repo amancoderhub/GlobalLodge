@@ -3,9 +3,6 @@
 A full‑stack lodging marketplace built with **Node.js**, **Express**, **MongoDB (Mongoose)**, and **EJS** templates, styled with **Tailwind/Custom CSS**. It lets users browse, search, filter by category, view details, authenticate, and manage their own listings & reviews.
 
 ---
-
-## 📽️ Demo
-
 ## 📽️ Demo
 [▶️ Watch the demo](https://drive.google.com/drive/folders/1Q9m4qcA15gycXZxRbvN3lIx_Zhlxa0-C?usp=drive_link)
 
