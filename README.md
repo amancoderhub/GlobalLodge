@@ -145,7 +145,6 @@ Populate the DB with sample listings:
 ```bash
 node init/index.js
 ```
-
 ---
 
 ## 🚀 Deployment
@@ -153,7 +152,6 @@ node init/index.js
 * Use **Render / Railway / Fly.io** for backend deployment.
 * Add environment variables in dashboard.
 * Start command: `npm start`.
-
 ---
 
 ## 🔐 Security
@@ -162,26 +160,11 @@ node init/index.js
 * Strong `SESSION_SECRET`
 * Joi validation schemas (`schema.js`)
 * Cloudinary file size/type limits
-
 ---
-
-## 🤝 Contributing
-
-1. Fork & clone repo
-2. Create feature branch
-3. Commit & push
-4. Open PR
-
----
-
 ## 📄 License
-
 MIT License
-
 ---
-
 ## 📬 Contact
 
-* Author: Your Name
-* Email: [you@example.com](mailto:you@example.com)
-* Repo: [GlobalLodge](https://github.com/yourusername/GlobalLodge)
+* Author: Aman Shrivastav
+* Email: [you@example.com](saurbhsrivastav6@gmail.com)
