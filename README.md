@@ -6,9 +6,9 @@ A full‑stack lodging marketplace built with **Node.js**, **Express**, **MongoD
 
 ## 📽️ Demo
 
-[![Watch the demo](https://drive.google.com/drive/folders/1Q9m4qcA15gycXZxRbvN3lIx_Zhlxa0-C?usp=drive_link)]
+## 📽️ Demo
+[▶️ Watch the demo](https://drive.google.com/drive/folders/1Q9m4qcA15gycXZxRbvN3lIx_Zhlxa0-C?usp=drive_link)
 
-> Replace `YOUR_VIDEO_LINK_HERE` with the link to demo video.
 
 ---
 
