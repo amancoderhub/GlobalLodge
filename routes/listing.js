@@ -10,7 +10,7 @@ const multer = require("multer");
 const { storage } = require("../cloudConfig.js");
 const upload = multer({
     storage,
-    limits: { fileSize: 2 * 1024 * 1024 } 
+    limits: { fileSize: 2 * 1024 * 1024 }
 });
 
 // Index & Create
@@ -18,10 +18,10 @@ router
     .route("/")
     .get(wrapAsync(listingController.index))
     .post(
-    isLoggedIn,
-    upload.single("listing[image]"),
-    validateListing,
-    wrapAsync(listingController.createListing)
+        isLoggedIn,
+        upload.single("listing[image]"),
+        validateListing,
+        wrapAsync(listingController.createListing)
     );
 
 // New Form
@@ -32,11 +32,11 @@ router
     .route("/:id")
     .get(wrapAsync(listingController.showListing))
     .put(
-    isLoggedIn,
-    isOwner,
-    upload.single("image"),
-    validateListing,
-    wrapAsync(listingController.updateListing)
+        isLoggedIn,
+        isOwner,
+        upload.single("listing[image]"),
+        validateListing,
+        wrapAsync(listingController.updateListing)
     )
     .delete(isLoggedIn, isOwner, wrapAsync(listingController.destroyListing));
 

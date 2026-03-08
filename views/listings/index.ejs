@@ -1,225 +1,120 @@
 <% layout("/layouts/boilerplate") %>
-<style>
-#filters-wrapper {
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding: 2rem 0;
-  gap: 0.5rem;
-}
 
-#filters {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  flex-grow: 1;
-  scroll-behavior: smooth;
-}
+  <!-- Page Content -->
+  <div class="container-fluid px-md-5">
 
-#filters::-webkit-scrollbar {
-  display: none;
-}
+    <!-- Hero Section -->
+    <div class="hero-section" data-aos="zoom-out" data-aos-duration="1200">
+      <div class="hero-content px-4">
+        <h1 class="display-3">Find Your Next Adventure</h1>
+        <p class="lead">Explore unique homes, cabins, and more around the world.</p>
 
-.filter {
-  text-align: center;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-  flex: 0 0 auto;
-  min-width: 70px;
-}
-
-.filter:hover {
-  opacity: 1;
-  cursor: pointer;
-}
-
-.filter div {
-  font-size: 1.5rem;
-}
-
-.filter p {
-  font-size: 0.85rem;
-  margin: 0.3rem 0 0;
-}
-
-.tax-toggle {
-  border: 1px solid black;
-  border-radius: 1rem;
-  height: 3.25rem;
-  padding: 1rem;
-  margin-left: 4rem;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-/* Arrow buttons */
-.scroll-btn {
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease;
-}
-
-.scroll-btn:hover {
-  background: #f0f0f0;
-}
-.oval-box {
-  background-color: #f7f3f3; /* or any light color */
-  border-radius: 2rem;
-  padding: 0.5rem 1rem;
-  flex-grow: 1;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-
-@media (max-width: 768px) {
-  #filters-wrapper {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
-
-  .oval-box {
-    overflow-x: auto;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding: 0.5rem;
-  }
-
-  #filters {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    justify-content: flex-start;
-  }
-
-  .scroll-btn {
-    display: none;
-  }
-
-  .tax-toggle {
-      font-size: 0.85rem;
-      padding: 0.5rem 1rem;
-      margin-left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center; 
-      gap: 0.5rem;
-      width: 100%; 
-    }
-
-  .filter {
-    min-width: 60px;
-  }
-
-  .filter div {
-    font-size: 1.2rem;
-  }
-
-  .filter p {
-    font-size: 0.75rem;
-  }
-}
-
-</style>
-
-
-<body>
-  <!-- <h3>All Listings</h3> -->
-  <div id="filters-wrapper">
-  <!-- <button id="scroll-left" class="scroll-btn">&#8249;</button>
-
-  <div class="oval-box">
-    <div id="filters">
-      <div class="filter"><div><i class="fa-solid fa-fire"></i></div><p>Trending</p></div>
-      <div class="filter"><div><i class="fa-solid fa-bed"></i></div><p>Rooms</p></div>
-      <div class="filter"><div><i class="fa-solid fa-mountain-city"></i></div><p>Iconic city</p></div>
-      <div class="filter"><div><i class="fa-solid fa-mountain"></i></div><p>Mountains</p></div>
-      <div class="filter"><div><i class="fa-brands fa-fort-awesome"></i></div><p>Castle</p></div>
-      <div class="filter"><div><i class="fa-solid fa-person-swimming"></i></div><p>Amazing pool</p></div>
-      <div class="filter"><div><i class="fa-solid fa-campground"></i></div><p>Camping</p></div>
-      <div class="filter"><div><i class="fa-solid fa-cow"></i></div><p>Farms</p></div>
-      <div class="filter"><div><i class="fa-regular fa-snowflake"></i></div><p>Arctic</p></div>
-      <div class="filter"><div><i class="fa-solid fa-mountain-sun"></i></div><p>Island</p></div>
-      <div class="filter"><div><i class="fa-solid fa-house-chimney"></i></div><p>HillStation</p></div>
-    </div>
-  </div> -->
-
-  <!-- <button id="scroll-right" class="scroll-btn">&#8250;</button> -->
-
-  <div class="tax-toggle">
-    <div class="form-check-reverse form-switch">
-      <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
-      <label class="form-check-label" for="switchCheckDefault">Display Total After taxes</label>
-    </div>
-  </div>
-</div>
-
-  
-
-  
-  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
-    <% for (let listing of allListings) { %>
-      <a href="/listings/<%= listing._id %>" class="listing-link">
-        <div class="card col listing-card">
-          
-          <% 
-            let imageUrl;
-            if (listing.image && listing.image.url) {
-              imageUrl = listing.image.url.startsWith("http")
-                ? listing.image.url
-                : `https://res.cloudinary.com/devf9qie2/image/upload/${listing.image.url}`;
-            } else {
-              imageUrl = "/images/default.jpg"; // Fallback if no image
-            }
-          %>
-
-          <img src="<%= imageUrl %>" class="card-img-top" alt="listing_image" style="height: 20rem">
-          <div class="card-img-overlay"></div>
-
-          <div class="card-body">
-            <p class="card-text">
-              <b><%= listing.title %></b> <br>
-              ₹<%= listing.price.toLocaleString("en-IN") %> / night
-              <i class="tax-info"> &nbsp; &nbsp; +18% GST</i>
-            </p>
+        <form action="/listings" method="GET" class="d-flex justify-content-center mt-4">
+          <div class="search-wrapper position-relative" style="width: 100%; max-width: 600px;">
+            <input type="text" name="q" class="form-control form-control-lg border-0 shadow-lg ps-5 rounded-pill"
+              placeholder="Search destinations (e.g. Goa, Shimla)" value="<%= typeof q !== 'undefined' ? q : '' %>"
+              style="height: 60px; font-size: 1.1rem;">
+            <i class="fa-solid fa-magnifying-glass position-absolute text-muted"
+              style="left: 20px; top: 18px; font-size: 1.4rem;"></i>
+            <button class="btn bg-fe424d text-white position-absolute rounded-pill px-4"
+              style="right: 8px; top: 8px; height: 44px; font-weight: 700;">Search</button>
           </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Filters Wrapper -->
+    <div id="filters-wrapper" class="d-flex align-items-center justify-content-between flex-wrap py-4 mt-2">
+
+      <div id="filters" class="d-flex align-items-center flex-grow-1 overflow-auto">
+        <% const categories=[ { name: "Trending" , icon: "fa-fire" }, { name: "Rooms" , icon: "fa-bed" }, {
+          name: "Iconic Cities" , icon: "fa-mountain-city" }, { name: "Mountains" , icon: "fa-mountain" }, {
+          name: "Castles" , icon: "fa-fort-awesome" }, { name: "Amazing Pools" , icon: "fa-person-swimming" }, {
+          name: "Camping" , icon: "fa-campground" }, { name: "Farms" , icon: "fa-cow" }, { name: "Arctic" ,
+          icon: "fa-snowflake" }, { name: "Islands" , icon: "fa-ship" } ]; %>
+
+          <% for(let cat of categories) { %>
+            <div class="filter me-4" onclick="window.location.href='/listings?category=<%= cat.name %>'">
+              <div><i class="fa-solid <%= cat.icon %>"></i></div>
+              <p>
+                <%= cat.name %>
+              </p>
+            </div>
+            <% } %>
+      </div>
+
+      <div class="tax-toggle ms-md-4 mt-3 mt-md-0 shadow-sm bg-white p-3 rounded-4 d-flex align-items-center">
+        <div class="form-check-reverse form-switch">
+          <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault"
+            style="cursor: pointer;">
+          <label class="form-check-label fw-bold text-secondary" for="switchCheckDefault"
+            style="cursor: pointer; margin-right: 10px;">Display total after taxes</label>
         </div>
-      </a>
-    <% } %>
+      </div>
+    </div>
+
+    <!-- Listings Grid -->
+    <% if(allListings.length===0) { %>
+      <div class="text-center py-5 my-5" data-aos="fade-up">
+        <i class="fa-solid fa-map-location-dot display-1 text-muted opacity-25 mb-4"></i>
+        <h2 class="fw-bold">No listings found</h2>
+        <p class="text-muted fs-5">Try adjusting your filters or search keywords.</p>
+        <a href="/listings" class="btn btn-dark rounded-pill px-5 py-3 mt-3">View All Listings</a>
+      </div>
+      <% } else { %>
+        <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 g-4 mt-2">
+          <% for (let listing of allListings) { %>
+            <div class="col" data-aos="fade-up">
+              <a href="/listings/<%= listing._id %>" class="listing-link">
+                <div class="card h-100 listing-card border-0">
+                  <div class="card-img-container position-relative overflow-hidden">
+                    <% let imageUrl; if (listing.image && listing.image.url) {
+                      imageUrl=listing.image.url.startsWith("http") ? listing.image.url :
+                      `https://res.cloudinary.com/devf9qie2/image/upload/${listing.image.url}`; } else {
+                      imageUrl="/images/default.jpg" ; } %>
+                      <img src="<%= imageUrl %>" class="card-img-top" alt="listing_image" style="height: 18rem;">
+                      <div class="card-img-overlay d-flex align-items-end p-3">
+                        <span class="badge bg-white text-dark rounded-pill px-3 py-2 shadow-sm">View Details</span>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title fw-bold mb-1 text-truncate">
+                      <%= listing.title %>
+                    </h5>
+                    <p class="text-muted small mb-2"><i class="fa-solid fa-location-dot me-1"></i>
+                      <%= listing.location %>, <%= listing.country %>
+                    </p>
+                    <div class="d-flex align-items-center justify-content-between mt-auto">
+                      <p class="card-text mb-0">
+                        <span class="fs-5 fw-bold text-dark">₹<%= listing.price.toLocaleString("en-IN") %></span>
+                        <span class="text-muted small">/ night</span>
+                      </p>
+                      <i class="tax-info text-primary-lodge small fw-bold" style="display: none;">+18% GST</i>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <% } %>
+        </div>
+        <% } %>
   </div>
-</body>
-<script>
-  // // Scroll buttons logic
-  // const filters = document.getElementById("filters");
-  // const scrollLeftBtn = document.getElementById("scroll-left");
-  // const scrollRightBtn = document.getElementById("scroll-right");
 
-  // scrollLeftBtn.addEventListener("click", () => {
-  //   filters.scrollBy({ left: -200, behavior: "smooth" });
-  // });
+  <script>
+    // Tax toggle logic
+    document.getElementById("switchCheckDefault").addEventListener("change", function () {
+      const taxInfo = document.querySelectorAll(".tax-info");
+      for (let info of taxInfo) {
+        info.style.display = this.checked ? "inline" : "none";
+      }
+    });
 
-  // scrollRightBtn.addEventListener("click", () => {
-  //   filters.scrollBy({ left: 200, behavior: "smooth" });
-  // });
-
-  // Tax toggle
-  const taxSwitch = document.getElementById("switchCheckDefault");
-  taxSwitch.addEventListener("click", () => {
-    const taxInfo = document.getElementsByClassName("tax-info");
-    for (const info of taxInfo) {
-      info.style.display = (info.style.display !== "inline") ? "inline" : "none";
-    }
-  });
-</script>
+    // Handle Category Scroll with mouse wheel
+    const filterBox = document.getElementById("filters");
+    filterBox.addEventListener("wheel", (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        filterBox.scrollLeft += e.deltaY;
+      }
+    });
+  </script>

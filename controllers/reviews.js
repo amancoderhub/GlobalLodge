@@ -20,3 +20,10 @@ module.exports.dstroyReview = async (req, res) => {
     req.flash("success", "Review Deleted!");
     res.redirect(`/listings/${id}`);
 };
+
+module.exports.updateReview = async (req, res) => {
+    let { id, reviewId } = req.params;
+    await Review.findByIdAndUpdate(reviewId, { ...req.body.review });
+    req.flash("success", "Review Updated!");
+    res.redirect(`/listings/${id}`);
+};

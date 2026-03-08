@@ -14,7 +14,10 @@ module.exports.listingSchema = Joi.object({
                 filename: Joi.string().optional()
             }),
             Joi.valid(null)
-        ).optional()
+        ).optional(),
+        category: Joi.string().valid(
+            "Trending", "Rooms", "Iconic Cities", "Mountains", "Castles", "Amazing Pools", "Camping", "Farms", "Arctic", "Islands"
+        ).required()
     }).required()
 });
 

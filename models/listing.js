@@ -18,7 +18,7 @@ const listingSchema = new Schema(
             required: true,
         },
         description: String,
-        image: imageSchema,  
+        image: imageSchema,
         price: Number,
         location: String,
         country: String,
@@ -33,19 +33,23 @@ const listingSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "User",
         },
-        geometry  : {
+        geometry: {
             type: {
                 type: String,
                 enum: ['Point'],
-                default:'Point',
+                default: 'Point',
                 required: true
             },
             coordinates: {
                 type: [Number],
                 required: true
             }
-        } 
-            },
+        },
+        category: {
+            type: String,
+            enum: ["Trending", "Rooms", "Iconic Cities", "Mountains", "Castles", "Amazing Pools", "Camping", "Farms", "Arctic", "Islands"]
+        }
+    },
     // { toJSON: { virtuals: true } }
 );
 

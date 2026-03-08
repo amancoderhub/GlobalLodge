@@ -10,12 +10,14 @@ module.exports.index = async (req, res) => {
     let filter = {};
 
     if (q && q.trim() !== "") {
-        filter = {
-            $or: [
-                { location: { $regex: q, $options: "i" } },
-                { title: { $regex: q, $options: "i" } } // Optional: title-based search
-            ]
-        };
+        filter.$or = [
+            { location: { $regex: q, $options: "i" } },
+            { title: { $regex: q, $options: "i" } }
+        ];
+    }
+
+    if (req.query.category) {
+        filter.category = req.query.category;
     }
 
     const allListings = await Listing.find(filter);
@@ -46,10 +48,10 @@ module.exports.showListing = async (req, res) => {
 module.exports.createListing = async (req, res, next) => {
 
     let response = await geocodingClient.forwardGeocode({
-    query: req.body.listing.location,
-    limit: 1,
-})
-    .send();
+        query: req.body.listing.location,
+        limit: 1,
+    })
+        .send();
 
 
     const listingData = req.body.listing;
@@ -61,10 +63,10 @@ module.exports.createListing = async (req, res, next) => {
     }
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
-    
+
     newListing.geometry = response.body.features[0].geometry;
 
-    let savedListing=  await newListing.save();
+    let savedListing = await newListing.save();
     console.log(savedListing);
     req.flash("success", "New Listing Created!");
     res.redirect("/listings");
@@ -78,8 +80,12 @@ module.exports.renderEditForm = async (req, res) => {
         req.flash("error", "Listing you requested does not exist");
         return res.redirect("/listings");
     }
-    let originalImageUrl = listing.image.url;
-    originalImageUrl.replace("/upload","/upload,w_250")
+
+    let originalImageUrl = "/images/default.jpg";
+    if (listing.image && listing.image.url) {
+        originalImageUrl = listing.image.url.replace("/upload", "/upload/w_250");
+    }
+
     res.render("listings/edit.ejs", { listing, originalImageUrl });
 };
 
@@ -92,11 +98,24 @@ module.exports.updateListing = async (req, res) => {
         return res.redirect("/listings");
     }
 
-    if (req.file) {
-        if (listing.image?.filename && listing.image.filename !== "custom") {
-            await cloudinary.uploader.destroy(listing.image.filename);
-        }
+    // Re-geocode if location is changed or missing geometry
+    if (req.body.listing.location && (req.body.listing.location !== listing.location || !listing.geometry)) {
+        let response = await geocodingClient.forwardGeocode({
+            query: req.body.listing.location,
+            limit: 1,
+        }).send();
 
+        if (response.body.features.length) {
+            listing.geometry = response.body.features[0].geometry;
+        }
+    }
+
+    // Update other fields
+    if (req.body.listing) {
+        Object.assign(listing, req.body.listing);
+    }
+
+    if (req.file) {
         listing.image = {
             url: req.file.path,
             filename: req.file.filename

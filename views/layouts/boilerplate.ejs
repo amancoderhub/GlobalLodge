@@ -16,18 +16,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/LunarLogic/starability/starability-all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/LunarLogic/starability/starability-all.min.css">
 
     <link href="/CSS/rating.css" rel="stylesheet" />
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet">
-<script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
 </head>
 
 <body>
     <%- include("../includes/navbar.ejs") %>
         <div class="container">
             <%- include("../includes/flash.ejs") %>
-            <%- body %>
+                <%- body %>
         </div>
 
         <%- include("../includes/footer.ejs") %>
@@ -35,8 +36,14 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
                 crossorigin="anonymous"></script>
-
-                <script src="/js/script.js"></script>
+            <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+            <script>
+                AOS.init({
+                    duration: 800,
+                    once: true
+                });
+            </script>
+            <script src="/js/script.js"></script>
 </body>
 
 </html>
