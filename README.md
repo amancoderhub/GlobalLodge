@@ -1,11 +1,12 @@
 # GlobalLodge 🏠
 
-A full‑stack lodging marketplace built with **Node.js**, **Express**, **MongoDB (Mongoose)**, and **EJS** templates, styled with **Tailwind/Custom CSS**. It lets users browse, search, filter by category, view details, authenticate, and manage their own listings & reviews.
+A full-stack lodging marketplace built with **Node.js**, **Express**, **MongoDB (Mongoose)**, and **EJS** templates, styled with **Tailwind/Custom CSS**. It lets users browse, search, filter by category, view details, authenticate, and manage their own listings & reviews.
 
 ---
-## 📽️ Demo
-[▶️ Watch the demo](https://drive.google.com/drive/folders/1Q9m4qcA15gycXZxRbvN3lIx_Zhlxa0-C?usp=drive_link)
 
+## 📽️ Demo
+
+[▶️ Watch the demo](https://drive.google.com/drive/folders/1Q9m4qcA15gycXZxRbvN3lIx_Zhlxa0-C?usp=drive_link)
 
 ---
 
@@ -38,25 +39,20 @@ A full‑stack lodging marketplace built with **Node.js**, **Express**, **MongoD
 
 ```bash
 GlobalLodge/
-├─ controllers/       # Controller logic (listings, reviews, users)
-├─ init/              # Initial data scripts
-├─ models/            # Mongoose models (Listing, Review, User)
-├─ public/            # Static files (CSS, JS)
-├─ routes/            # Express route files
-├─ utils/             # Helpers (ExpressError, wrapAsync)
-├─ views/             # EJS templates
-│  ├─ includes/       # Partials (navbar, footer, flash)
-│  ├─ layouts/        # Layout boilerplate
-│  ├─ listings/       # Listing pages (index, new, edit, show)
-│  ├─ users/          # User pages (login, signup)
-│  └─ error.ejs       # Error page
-├─ .env               # Environment variables
-├─ app.js             # Main app setup
-├─ cloudConfig.js     # Cloudinary config
-├─ middleware.js      # Custom middlewares
-├─ schema.js          # Joi validation schemas
-├─ package.json       # NPM dependencies & scripts
-└─ README.md          # Project documentation
+├─ controllers/
+├─ init/
+├─ models/
+├─ public/
+├─ routes/
+├─ utils/
+├─ views/
+├─ .env
+├─ app.js
+├─ cloudConfig.js
+├─ middleware.js
+├─ schema.js
+├─ package.json
+└─ README.md
 ```
 
 ---
@@ -65,9 +61,11 @@ GlobalLodge/
 
 ### 1. Prerequisites
 
-* Node.js **v18+** and npm
+* Node.js **v18+**
 * MongoDB (local or Atlas)
-* Cloudinary account (for image hosting)
+* Cloudinary account
+
+---
 
 ### 2. Clone & install
 
@@ -77,28 +75,35 @@ cd GlobalLodge
 npm install
 ```
 
+---
+
 ### 3. Configure Environment
 
 Create a `.env` file:
-```dotenv
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/globallodge
-SESSION_SECRET=super-secret-key
 
-CLOUDINARY_CLOUD_NAME=your-cloud-name
-CLOUDINARY_KEY=your-key
-CLOUDINARY_SECRET=your-secret
+```env
+CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+MAP_TOKEN=
+
+ATLASDB_URL=
+
+SECRET=
 ```
+
+---
 
 ### 4. Run the app
 
 ```bash
-npm run dev   # nodemon (dev)
+npm run dev
 # or
-npm start     # production
+npm start
 ```
 
-Visit: [http://localhost:3000](http://localhost:3000)
+Visit: http://localhost:3000
 
 ---
 
@@ -116,12 +121,16 @@ Visit: [http://localhost:3000](http://localhost:3000)
 |    PUT | `/listings/:id`      | Update listing       |
 | DELETE | `/listings/:id`      | Delete listing       |
 
+---
+
 ### Reviews
 
 | Method | Path                         | Description   |
 | -----: | ---------------------------- | ------------- |
 |   POST | `/listings/:id/reviews`      | Add review    |
 | DELETE | `/listings/:id/reviews/:rid` | Delete review |
+
+---
 
 ### Users
 
@@ -137,31 +146,36 @@ Visit: [http://localhost:3000](http://localhost:3000)
 
 ## 🌱 Seed Data
 
-Populate the DB with sample listings:
-
 ```bash
 node init/index.js
 ```
+
 ---
 
 ## 🚀 Deployment
 
-* Use **Render / Railway / Fly.io** for backend deployment.
-* Add environment variables in dashboard.
-* Start command: `npm start`.
+* Render / Railway / Fly.io
+* Add environment variables
+* Start command: `npm start`
+
 ---
 
 ## 🔐 Security
 
-* `helmet` for HTTP headers
-* Strong `SESSION_SECRET`
-* Joi validation schemas (`schema.js`)
-* Cloudinary file size/type limits
+* helmet
+* Strong SECRET
+* Joi validation
+* Cloudinary limits
+
 ---
+
 ## 📄 License
+
 MIT License
+
 ---
+
 ## 📬 Contact
 
 * Author: Aman Shrivastav
-* Email: [you@example.com](saurbhsrivastav6@gmail.com)
+* Email: [saurbhsrivastv6@gmail.com](mailto:saurbhsrivastv6@gmail.com)
