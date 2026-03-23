@@ -6,7 +6,7 @@ A full-stack lodging marketplace built with **Node.js**, **Express**, **MongoDB 
 
 ## 📽️ Demo
 
-[▶️ Watch the demo](https://drive.google.com/drive/folders/1Q9m4qcA15gycXZxRbvN3lIx_Zhlxa0-C?usp=drive_link)
+[▶️ Watch the demo](https://drive.google.com/file/d/1rBQKei_vn7-QHtOJtvqFuVsfYvlGXDe9/view?usp=drive_link)
 
 ---
 
