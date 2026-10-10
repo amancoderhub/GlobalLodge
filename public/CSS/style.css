@@ -143,11 +143,12 @@ footer {
 /* Premium Listing Card System */
 .listing-card {
   border: none !important;
-  margin-bottom: 3rem;
+  margin-bottom: 0;
   background: white;
   border-radius: var(--radius-md) !important;
   transition: var(--transition) !important;
   overflow: hidden;
+  position: relative;
   box-shadow: var(--shadow-sm);
 }
 
@@ -168,12 +169,32 @@ footer {
   transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
+.listing-image {
+  height: 14rem;
+}
+
 .listing-card:hover .card-img-top {
   transform: scale(1.08);
 }
 
 .card-body {
-  padding: 1.5rem !important;
+  padding: 1.25rem !important;
+}
+
+.listing-title {
+  display: -webkit-box;
+  min-height: 2.5rem;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.listing-location {
+  min-height: 2.5rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .card-text b {
@@ -184,6 +205,66 @@ footer {
 .listing-link {
   text-decoration: none;
   color: inherit;
+}
+
+.favorite-form {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+}
+
+.favorite-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-sm);
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.favorite-button:hover,
+.favorite-button:focus-visible {
+  color: var(--primary-color);
+  transform: scale(1.08);
+}
+
+.favorite-button.is-favorite {
+  color: var(--primary-color);
+}
+
+.booking-panel {
+  background: linear-gradient(135deg, #fff7f7, #ffffff);
+}
+
+.booking-status {
+  align-self: flex-start;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.booking-status-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.booking-status-confirmed {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+.booking-status-cancelled {
+  background: #f8d7da;
+  color: #842029;
 }
 
 .card-img-overlay {
@@ -314,6 +395,39 @@ footer {
     align-items: center;
 }
 
+.listing-sort-form .form-select {
+  min-width: 11rem;
+  border-radius: var(--radius-sm);
+  border-color: #e5e5e5;
+  font-weight: 600;
+}
+
+.pagination .page-link {
+  color: var(--secondary-color);
+}
+
+.pagination .page-item.active .page-link {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.error-state {
+  max-width: 42rem;
+  margin: 6rem auto;
+  padding: 3rem 2rem;
+  background: white;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.error-state-code {
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+  font-size: clamp(4rem, 15vw, 8rem);
+  font-weight: 800;
+  line-height: 1;
+}
+
 /* Responsive Tweaks */
 @media (max-width: 768px) {
   .hero-content h1 {
@@ -323,5 +437,19 @@ footer {
     flex-direction: column;
     text-align: center;
     align-items: center;
+  }
+
+  .listing-image {
+    height: 13rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .listing-image {
+    height: 12rem;
+  }
+
+  .card-body {
+    padding: 1rem !important;
   }
 }

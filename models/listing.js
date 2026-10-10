@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review.js");
+const Booking = require("./booking.js");
 
 const imageSchema = new Schema({
     url: String,
@@ -8,7 +9,14 @@ const imageSchema = new Schema({
 });
 
 imageSchema.virtual("thumbnail").get(function () {
-    return this.url.replace("/upload", "/upload/w_300");
+    if (!this.url || !this.url.includes("res.cloudinary.com")) {
+        return this.url;
+    }
+
+    return this.url.replace(
+        "/upload/",
+        "/upload/f_auto,q_auto,c_fill,g_auto,w_700,h_450/"
+    );
 });
 
 const listingSchema = new Schema(
@@ -55,7 +63,10 @@ const listingSchema = new Schema(
 
 listingSchema.post("findOneAndDelete", async (listing) => {
     if (listing) {
-        await Review.deleteMany({ _id: { $in: listing.reviews } });
+        await Promise.all([
+            Review.deleteMany({ _id: { $in: listing.reviews } }),
+            Booking.deleteMany({ listing: listing._id }),
+        ]);
     }
 });
 

@@ -4,24 +4,88 @@ const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
+const LISTING_PAGE_SIZE = 8;
+const LISTING_SORTS = {
+    newest: { _id: -1 },
+    priceAsc: { price: 1 },
+    priceDesc: { price: -1 },
+};
 
-module.exports.index = async (req, res) => {
-    const { q } = req.query;
-    let filter = {};
+const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-    if (q && q.trim() !== "") {
+const buildListingQuery = ({ q, category }) => {
+    const filter = {};
+    const searchTerm = q?.trim();
+
+    if (searchTerm) {
+        const searchPattern = new RegExp(escapeRegex(searchTerm), "i");
         filter.$or = [
-            { location: { $regex: q, $options: "i" } },
-            { title: { $regex: q, $options: "i" } }
+            { location: searchPattern },
+            { title: searchPattern },
         ];
     }
 
-    if (req.query.category) {
-        filter.category = req.query.category;
+    if (category) {
+        filter.category = category;
     }
 
-    const allListings = await Listing.find(filter);
-    res.render("listings/index.ejs", { allListings });
+    return filter;
+};
+
+const createFilterQuery = ({ q, category, sort }) => {
+    const params = new URLSearchParams();
+
+    if (q) params.set("q", q);
+    if (category) params.set("category", category);
+    if (sort && sort !== "newest") params.set("sort", sort);
+
+    return params.toString();
+};
+
+module.exports.index = async (req, res) => {
+    const q = typeof req.query.q === "string" ? req.query.q.trim() : "";
+    const category = typeof req.query.category === "string" ? req.query.category : "";
+    const sort = Object.hasOwn(LISTING_SORTS, req.query.sort) ? req.query.sort : "newest";
+    const requestedPage = Number.parseInt(req.query.page, 10);
+    const filter = buildListingQuery({ q, category });
+    const totalListings = await Listing.countDocuments(filter);
+    const totalPages = Math.max(Math.ceil(totalListings / LISTING_PAGE_SIZE), 1);
+    const currentPage = Number.isInteger(requestedPage) && requestedPage > 0
+        ? Math.min(requestedPage, totalPages)
+        : 1;
+    const filterQuery = createFilterQuery({ q, category, sort });
+    const categoryQueries = {};
+
+    for (const listingCategory of ["Trending", "Rooms", "Iconic Cities", "Mountains", "Castles", "Amazing Pools", "Camping", "Farms", "Arctic", "Islands"]) {
+        categoryQueries[listingCategory] = createFilterQuery({ q, category: listingCategory, sort });
+    }
+
+    const allListings = await Listing.find(filter)
+        .sort(LISTING_SORTS[sort])
+        .skip((currentPage - 1) * LISTING_PAGE_SIZE)
+        .limit(LISTING_PAGE_SIZE);
+    const favoriteListingIds = new Set((req.user?.favorites || []).map((id) => id.toString()));
+    const listingsWithFavoriteState = allListings.map((listing) => ({
+        listing,
+        isFavorite: favoriteListingIds.has(listing._id.toString()),
+    }));
+
+    res.render("listings/index.ejs", {
+        listingsWithFavoriteState,
+        q,
+        category,
+        sort,
+        filterQuery,
+        categoryQueries,
+        currentUrl: req.originalUrl,
+        pagination: {
+            currentPage,
+            totalPages,
+            totalListings,
+            hasPreviousPage: currentPage > 1,
+            hasNextPage: currentPage < totalPages,
+        },
+    });
 };
 
 module.exports.renderNewForm = (req, res) => {
@@ -42,7 +106,10 @@ module.exports.showListing = async (req, res) => {
         return res.redirect("/listings");
     }
 
-    res.render("listings/show.ejs", { listing });
+    res.render("listings/show.ejs", {
+        listing,
+        today: new Date().toISOString().slice(0, 10),
+    });
 };
 
 module.exports.createListing = async (req, res, next) => {

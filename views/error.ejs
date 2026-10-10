@@ -1,8 +1,7 @@
 <% layout("/layouts/boilerplate") %>
-    <div class="row mt-3">
-        <div class="alert alert-danger col-6 offset-3" role="alert">
-            <p class="alert-heading">
-                <%= message %>
-            </p>
-        </div>
-    </div>
+    <section class="error-state text-center" aria-labelledby="error-title">
+        <p class="error-state-code"><%= statusCode %></p>
+        <h1 id="error-title"><%= statusCode === 404 ? "Page not found" : "Something went wrong" %></h1>
+        <p class="text-muted mb-4"><%= statusCode === 404 ? "The page you requested does not exist or may have moved." : message %></p>
+        <a href="/listings" class="btn btn-dark">Browse listings</a>
+    </section>

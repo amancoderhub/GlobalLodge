@@ -1,0 +1,42 @@
+<div class="col" data-aos="fade-up">
+  <div class="card h-100 listing-card border-0">
+    <% if (currUser) { %>
+      <form action="/listings/<%= listing._id %>/favorite" method="POST" class="favorite-form">
+        <input type="hidden" name="returnTo" value="<%= returnTo %>">
+        <button type="submit" class="favorite-button <%= isFavorite ? 'is-favorite' : '' %>"
+          aria-label="<%= isFavorite ? 'Remove from favourites' : 'Save to favourites' %>"
+          aria-pressed="<%= isFavorite %>">
+          <i class="<%= isFavorite ? 'fa-solid' : 'fa-regular' %> fa-heart" aria-hidden="true"></i>
+        </button>
+      </form>
+    <% } else { %>
+      <a href="/login" class="favorite-button" aria-label="Log in to save this listing">
+        <i class="fa-regular fa-heart" aria-hidden="true"></i>
+      </a>
+    <% } %>
+
+    <a href="/listings/<%= listing._id %>" class="listing-link d-block h-100">
+      <div class="card-img-container position-relative overflow-hidden">
+        <% const imageUrl = listing.image?.thumbnail || "/images/default.jpg"; %>
+        <img src="<%= imageUrl %>" class="card-img-top listing-image" alt="<%= listing.title %>" loading="lazy"
+          decoding="async" width="700" height="450">
+        <div class="card-img-overlay d-flex align-items-end p-3">
+          <span class="badge bg-white text-dark rounded-pill px-3 py-2 shadow-sm">View Details</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title listing-title fw-bold mb-1"><%= listing.title %></h5>
+        <p class="text-muted small mb-2 listing-location"><i class="fa-solid fa-location-dot me-1"></i>
+          <%= listing.location %>, <%= listing.country %>
+        </p>
+        <div class="d-flex align-items-center justify-content-between mt-auto">
+          <p class="card-text mb-0" data-listing-price="<%= listing.price %>">
+            <span class="fs-5 fw-bold text-dark">&#8377;<%= listing.price.toLocaleString("en-IN") %></span>
+            <span class="text-muted small">/ night</span>
+          </p>
+          <span class="tax-info text-primary-lodge small fw-bold" hidden>Includes 18% GST</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

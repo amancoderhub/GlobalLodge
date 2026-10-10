@@ -1,6 +1,6 @@
 const Listing = require("./models/listing");
 const Review = require("./models/review");
-const { listingSchema, reviewSchema } = require("./schema.js");
+const { listingSchema, reviewSchema, bookingSchema } = require("./schema.js");
 const ExpressError = require("./utils/ExpressError.js");
 
 module.exports.isLoggedIn = (req, res, next) => {
@@ -48,6 +48,17 @@ module.exports.validateReview = (req, res, next) => {
         next();
     }
 }
+
+module.exports.validateBooking = (req, res, next) => {
+    const { error } = bookingSchema.validate(req.body);
+
+    if (error) {
+        const errMsg = error.details.map((el) => el.message).join(",");
+        throw new ExpressError(400, errMsg);
+    }
+
+    next();
+};
 
 module.exports.isReviewAuthor = async (req, res, next) => {
     let { id, reviewId } = req.params;

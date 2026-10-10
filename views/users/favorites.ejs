@@ -1,0 +1,28 @@
+<% layout("/layouts/boilerplate") %>
+
+<section class="container py-5" aria-labelledby="saved-listings-title">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <p class="text-primary-lodge fw-bold mb-1">YOUR FAVOURITES</p>
+      <h1 id="saved-listings-title" class="fw-bold mb-0">Saved homes</h1>
+    </div>
+    <a href="/listings" class="btn btn-outline-dark">Explore listings</a>
+  </div>
+
+  <% if (favoriteListings.length === 0) { %>
+    <div class="text-center py-5 my-5">
+      <i class="fa-regular fa-heart display-1 text-muted opacity-25 mb-4"></i>
+      <h2 class="fw-bold">No saved homes yet</h2>
+      <p class="text-muted fs-5">Save places you love to find them easily later.</p>
+      <a href="/listings" class="btn btn-dark rounded-pill px-5 py-3 mt-3">Explore listings</a>
+    </div>
+  <% } else { %>
+    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 g-4">
+      <% for (const listing of favoriteListings) { %>
+        <%- include("../listings/card.ejs", { listing, isFavorite: true, returnTo: '/favorites' }) %>
+      <% } %>
+    </div>
+  <% } %>
+</section>
+
+<script src="/js/listingIndex.js"></script>

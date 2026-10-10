@@ -1,0 +1,51 @@
+<% layout("/layouts/boilerplate") %>
+
+<section class="container py-5" aria-labelledby="my-bookings-title">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <p class="text-primary-lodge fw-bold mb-1">YOUR TRIPS</p>
+      <h1 id="my-bookings-title" class="fw-bold mb-0">My stays</h1>
+    </div>
+    <a href="/listings" class="btn btn-outline-dark">Explore listings</a>
+  </div>
+
+  <% if (bookingCards.length === 0) { %>
+    <div class="text-center py-5 my-5">
+      <i class="fa-regular fa-calendar-days display-1 text-muted opacity-25 mb-4"></i>
+      <h2 class="fw-bold">No bookings yet</h2>
+      <p class="text-muted fs-5">Your upcoming stays will appear here.</p>
+      <a href="/listings" class="btn btn-dark rounded-pill px-5 py-3 mt-3">Explore listings</a>
+    </div>
+  <% } else { %>
+    <div class="row g-4">
+      <% for (const { booking, canCancel } of bookingCards) { %>
+        <div class="col-12 col-lg-6">
+          <article class="booking-card h-100 p-4 bg-white rounded-4 shadow-sm border">
+            <div class="d-flex justify-content-between gap-3 mb-3">
+              <div>
+                <p class="text-muted small mb-1">BOOKING</p>
+                <h2 class="h4 fw-bold mb-0"><%= booking.listing.title %></h2>
+              </div>
+              <span class="booking-status booking-status-<%= booking.status %>"><%= booking.status %></span>
+            </div>
+            <p class="text-muted mb-3"><i class="fa-solid fa-location-dot me-1"></i><%= booking.listing.location %>, <%= booking.listing.country %></p>
+            <div class="row g-3 small mb-4">
+              <div class="col-6"><strong>Check-in</strong><br><%= booking.checkIn.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) %></div>
+              <div class="col-6"><strong>Check-out</strong><br><%= booking.checkOut.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) %></div>
+              <div class="col-6"><strong>Guests</strong><br><%= booking.guests %></div>
+              <div class="col-6"><strong>Total</strong><br>&#8377;<%= booking.totalPrice.toLocaleString("en-IN") %> for <%= booking.totalNights %> night<%= booking.totalNights === 1 ? '' : 's' %></div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center border-top pt-3">
+              <a href="/listings/<%= booking.listing._id %>" class="btn btn-outline-dark btn-sm">View listing</a>
+              <% if (canCancel) { %>
+                <form action="/bookings/<%= booking._id %>/cancel?_method=PATCH" method="POST">
+                  <button type="submit" class="btn btn-outline-danger btn-sm">Cancel booking</button>
+                </form>
+              <% } %>
+            </div>
+          </article>
+        </div>
+      <% } %>
+    </div>
+  <% } %>
+</section>

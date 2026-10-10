@@ -83,6 +83,41 @@
                                 </div>
                             </div>
 
+                            <% if (currUser && !listing.owner._id.equals(currUser._id)) { %>
+                                <section class="booking-panel border rounded-4 p-4 mb-4" aria-labelledby="booking-title">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div>
+                                            <p class="text-primary-lodge fw-bold small mb-1">RESERVE YOUR STAY</p>
+                                            <h3 id="booking-title" class="h4 fw-bold mb-0">Book this home</h3>
+                                        </div>
+                                        <span class="fw-bold">&#8377;<%= listing.price.toLocaleString("en-IN") %><small class="text-muted fw-normal"> / night</small></span>
+                                    </div>
+                                    <form action="/listings/<%= listing._id %>/bookings" method="POST" class="needs-validation" novalidate data-loading-text="Checking availability…">
+                                        <div class="row g-3">
+                                            <div class="col-md-5">
+                                                <label for="check-in" class="form-label fw-bold">Check-in</label>
+                                                <input id="check-in" name="booking[checkIn]" type="date" class="form-control" min="<%= today %>" required>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label for="check-out" class="form-label fw-bold">Check-out</label>
+                                                <input id="check-out" name="booking[checkOut]" type="date" class="form-control" min="<%= today %>" required>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label for="guests" class="form-label fw-bold">Guests</label>
+                                                <input id="guests" name="booking[guests]" type="number" class="form-control" min="1" max="10" value="1" required>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-dark mt-4">Request booking</button>
+                                    </form>
+                                </section>
+                            <% } else if (!currUser) { %>
+                                <section class="booking-panel border rounded-4 p-4 mb-4">
+                                    <h3 class="h4 fw-bold">Ready to book?</h3>
+                                    <p class="text-muted mb-3">Log in to choose dates and request your stay.</p>
+                                    <a href="/login" class="btn btn-dark">Log in to book</a>
+                                </section>
+                            <% } %>
+
                             <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
                                 <div class="d-flex gap-3 mt-4 border-top pt-4">
                                     <a href="/listings/<%= listing._id%>/edit"

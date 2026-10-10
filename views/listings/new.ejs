@@ -4,7 +4,8 @@
         <div class="col-8 offset-2">
             <br><br>
             <h3>Create a New Listing</h3>
-            <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+            <form method="post" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data"
+                data-loading-text="Creating listing…">
 
                 <!-- Title -->
                 <div class="mb-3">
@@ -70,7 +71,7 @@
 
                 <br><br>
 
-                <button class="btn btn-dark add-btn">Add</button>
+                <button type="submit" class="btn btn-dark add-btn">Add</button>
                 <br><br>
             </form>
         </div>
